@@ -23,51 +23,6 @@ body, html {
   width: 100%;
 }
 
-/* Section 1: Navigation */
-.navbar {
-  width: 80px;
-  background-color: var(--primary-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-}
-
-.navbar ul {
-  width: 100%;
-  list-style: none;
-}
-
-.navbar li {
-  width: 100%;
-  padding: 15px 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.navbar li:hover {
-  background-color: var(--secondary-color);
-  transition: background-color 0.3s ease;
-}
-
-.navbar li:first-child {
-  padding: 45px 0;
-}
-
-.user-icon {
-width: 45px; 
-height: 45px; 
-border-radius: 50%;
-}
-
-.menu-icon {
-  width: 30px; 
-  height: 30px; 
-}
-
 /* Section 2: Dynamic Menu Area */
 .menu {
   width: 450px;
