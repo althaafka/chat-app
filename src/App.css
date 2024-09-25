@@ -18,7 +18,7 @@ body, html {
 
 .container {
   display: flex;
-flex-direction: row;
+  flex-direction: row;
   height: 100vh;
   width: 100%;
 }
@@ -30,29 +30,47 @@ flex-direction: row;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
   align-items: center;
   color: #fff;
 }
 
 .navbar ul {
+  width: 100%;
   list-style: none;
 }
 
 .navbar li {
-  margin: 20px 0;
+  width: 100%;
+  padding: 15px 0;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar li:hover {
+  background-color: var(--secondary-color);
+  transition: background-color 0.3s ease;
+}
+
+.navbar li:first-child {
+  padding: 45px 0;
 }
 
 .user-icon {
-width: 40px; 
-height: 40px; 
+width: 45px; 
+height: 45px; 
 border-radius: 50%;
+}
+
+.menu-icon {
+  width: 30px; 
+  height: 30px; 
 }
 
 /* Section 2: Dynamic Menu Area */
 .menu {
-  width: 240px;
+  width: 450px;
   background-color: var(--secondary-color);
   color: #fff;
   padding: 20px;

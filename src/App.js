@@ -15,10 +15,17 @@ function App() {
       <nav class="navbar">
           <ul>
               <li>
-                  <img id="user-icon" src={user.image_url} alt="User Icon" class="user-icon"/>
+                <img src={user.image_url} alt="User Icon" class="user-icon"/>
               </li>
-              <li><i class="icon-chat">C</i></li>
-              <li><i class="icon-settings">S</i></li>
+              <li>
+                <img src="icons/chat.png" alt="Chat Icon" class="menu-icon"/>
+              </li>    
+              <li>
+                <img src="icons/friends.png" alt="Friends Icon" class="menu-icon"/>
+              </li>               
+              <li>
+                <img src="icons/settings.png" alt="Settings Icon" class="menu-icon"/>
+              </li>
           </ul>
       </nav>
       <div class="menu">
