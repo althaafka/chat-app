@@ -1,38 +1,81 @@
-.App {
-  text-align: center;
+:root {
+  --primary-color: #2C383E;
+  --secondary-color: #343D45;
+  --light-color: #E9EEEE;
+  --accent-color: #51C982;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body, html {
+  font-family: Arial, sans-serif;
+  height: 100%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
+  display: flex;
+flex-direction: row;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Section 1: Navigation */
+.navbar {
+  width: 80px;
+  background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #fff;
 }
 
-.App-link {
-  color: #61dafb;
+.navbar ul {
+  list-style: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar li {
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.user-icon {
+width: 40px; 
+height: 40px; 
+border-radius: 50%;
+}
+
+/* Section 2: Dynamic Menu Area */
+.menu {
+  width: 240px;
+  background-color: var(--secondary-color);
+  color: #fff;
+  padding: 20px;
+}
+
+/* Section 3: Chat Area */
+.chat-area {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light-color);
+  transition: width 0.3s ease-in-out;
+}
+
+/* Section 4: Side Bar */
+.side-bar {
+width: 0;
+  background-color: #fff;
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+}
+
+.side-bar.active {
+width: 300px;
+  padding: 20px;
 }
