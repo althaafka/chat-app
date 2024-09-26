@@ -13,13 +13,19 @@ function App() {
   const [user, setUser] = useState(user_data);
   const [menu, setMenu] = useState("Chats");
   const [items, setItems] = useState(raw_data.results);
+  const [activeRoom, setActiveRoom] = useState(items[0]);
+  console.log(items);
 
   const getRoomName = (room) => {
-    if (room.type === "single") {
-      const otherParticipant = room.participant.find(p => p.id !== user.id);
+    if (room.type && room.type == "single") {
+      const otherParticipant = room.participant.find(p => p.id != user.id);
       return otherParticipant ? otherParticipant.name : "Private Chat";
     }
     return room.name;
+  };
+
+  const handleRoomClick = (room) => {
+    setActiveRoom(room);
   };
 
   return (
@@ -32,9 +38,13 @@ function App() {
           <button className="add-button">+</button>
         </div>
         <ul className="item-list">
-          {items.map((item, index) => (
-            <li key={item.room.id} className="item">
-              <img src={item.room.image_url} className="item-avatar" />
+          {items.map((item) => (
+            <li 
+              key={item.room.id} 
+              className={`item ${activeRoom.room.id === item.room.id? 'active': ''}`}
+              onClick={() => handleRoomClick(item)}
+            >
+              <img src={item.room.image_url? item.room.image_url: "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" } className="item-avatar" alt={item.room.name} />
               <div className="item-details">
                 <div className="item-name">
                   {getRoomName(item.room)}
@@ -54,6 +64,5 @@ function App() {
     </div>
   );
 }
-  
 
 export default App;

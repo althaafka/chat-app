@@ -127,7 +127,7 @@ body, html {
   scrollbar-color: rgba(0, 0, 0, 0.1) transparent; 
 }
 
-.item-list.active {
+.item.active {
   background-color: var(--tertiary-color);
 }
 
