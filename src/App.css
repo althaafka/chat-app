@@ -28,7 +28,8 @@ body, html {
 
 /* Section 2: Dynamic Menu Area */
 .menu {
-  width: 450px;
+  min-width: 270px;
+  width: 30%;
   background-color: var(--secondary-color);
   color: #fff;
   padding: 30px 0;
@@ -80,14 +81,11 @@ body, html {
   overflow-y: auto; 
 }
 
-
 .item {
   display: flex;
   align-items: center;
   padding: 10px 20px;
   border-bottom: 1px solid var(--tertiary-color);
-  white-space: nowrap; 
-  overflow: hidden;
 }
 
 .item-avatar {
@@ -99,6 +97,9 @@ body, html {
 
 .item-details {
   flex-grow: 1;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .item-name {
@@ -110,6 +111,9 @@ body, html {
 .item-message {
   color: var(--text-color);
   opacity: 0.6;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .item-list::-webkit-scrollbar {

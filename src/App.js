@@ -32,13 +32,6 @@ function App() {
     return activeRoom.room.participant.find((participant) => participant.id === senderId);
   };
 
-  const truncateMessage = (message, maxLength) => {
-    if (message.length > maxLength) {
-      return message.substring(0, maxLength) + '...';
-    }
-    return message;
-  };
-
   return (
     <div className="container">
       <Navbar user={user} activeMenu={menu} setMenu={setMenu} />
@@ -61,7 +54,7 @@ function App() {
                   {getRoomName(item.room)}
                 </div>
                 <div className="item-message">
-                  {truncateMessage(item.comments[0].message, 40)}
+                  {item.comments[0].message}
                 </div>
               </div>
             </li>
@@ -96,7 +89,7 @@ function App() {
           <button className="attachment-button">
             <img src='icons/link-file.png'/>
           </button>
-          <input type="text" placeholder="Type something to send..." />
+          <input type="text" placeholder="Type something..." />
           <button className="send-button">
             <img src='icons/send-message.png'/>
           </button>
