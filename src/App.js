@@ -28,6 +28,10 @@ function App() {
     setActiveRoom(room);
   };
 
+  const getParticipant = (senderId) => {
+    return activeRoom.room.participant.find((participant) => participant.id === senderId);
+  };
+
   return (
     <div className="container">
       <Navbar user={user} activeMenu={menu} setMenu={setMenu} />
@@ -64,11 +68,20 @@ function App() {
           </div>
         </div>
         <div className="chat-messages">
-          {activeRoom.comments.map((comment) => (
-            <div key={comment.id} className={`chat-message ${comment.sender === user.id ? 'sent' : 'received'}`}>
-              <p>{comment.message}</p>
-            </div>
-          ))}
+          {activeRoom.comments.map((comment, index) => {
+            const participant = getParticipant(comment.sender);
+            const previousComment = index > 0 ? activeRoom.comments[index - 1] : null;
+            return (
+              <div key={comment.id}>
+                {activeRoom.room.type === "multiple" && comment.sender !== user.id && (!previousComment || previousComment.sender !== comment.sender) && (
+                  <div className="message-sender">{participant?.name}</div>
+                )}
+                <div className={`chat-message ${comment.sender === user.id ? 'sent' : 'received'}`}>
+                  <p>{comment.message}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
         <div className="chat-input">
           <button className="attachment-button">
