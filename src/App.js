@@ -56,7 +56,29 @@ function App() {
         </ul>
       </div>
       <div className="chat-area">
-        chat
+        <div className="chat-header">
+          <img src={activeRoom.room.image_url || user.image_url} className="chat-avatar"/>
+          <div className="chat-room-info">
+            <h3>{getRoomName(activeRoom.room)}</h3>
+            <div className="char-room-details"></div>
+          </div>
+        </div>
+        <div className="chat-messages">
+          {activeRoom.comments.map((comment) => (
+            <div key={comment.id} className={`chat-message ${comment.sender === user.id ? 'sent' : 'received'}`}>
+              <p>{comment.message}</p>
+            </div>
+          ))}
+        </div>
+        <div className="chat-input">
+          <button className="attachment-button">
+            <img src='icons/link-file.png'/>
+          </button>
+          <input type="text" placeholder="Type something to send..." />
+          <button className="send-button">
+            <img src='icons/send-message.png'/>
+          </button>
+        </div>
       </div>
       <div className="side-bar">
         side-bar

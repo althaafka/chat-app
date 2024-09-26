@@ -36,6 +36,45 @@
           "type": "text",
           "message": "Malam",
           "sender": "agent@mail.com"
+        },
+        {
+          "id": 885514,
+          "type": "text",
+          "message": "Ada yang bisa saya bantu?",
+          "sender": "agent@mail.com"
+        },
+        {
+          "id": 885515,
+          "type": "text",
+          "message": "Saya ingin mengirimkan bukti pembayaran, karena diaplikasi selalu gagal",
+          "sender": "customer@mail.com"
+        },
+        {
+          "id": 885516,
+          "type": "text",
+          "message": "Baik, silahkan kirimkan lampiran bukti pembayarannya",
+          "sender": "agent@mail.com"
+        },
+        {
+          "id": 885517,
+          "type": "image",
+          "url": "https://example.com/images/bukti-pembayaran.jpg",
+          "message": "Bukti Pembayaran",
+          "sender": "customer@mail.com"
+        },
+        {
+          "id": 885518,
+          "type": "video",
+          "url": "https://example.com/videos/tutorial.mp4",
+          "message": "Tutorial Cara Pembayaran",
+          "sender": "agent@mail.com"
+        },
+        {
+          "id": 885519,
+          "type": "pdf",
+          "url": "https://example.com/documents/invoice.pdf",
+          "file_name": "Invoice Pembayaran.pdf",
+          "sender": "customer@mail.com"
         }
       ]
     },
