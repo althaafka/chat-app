@@ -1,7 +1,9 @@
 :root {
   --primary-color: #2C383E;
   --secondary-color: #343D45;
+  --tertiary-color: #3C474F;
   --light-color: #E9EEEE;
+  --text-color: #fff;
   --accent-color: #51C982;
 }
 
@@ -28,8 +30,112 @@ body, html {
   width: 450px;
   background-color: var(--secondary-color);
   color: #fff;
-  padding: 20px;
+  padding: 30px 0;
 }
+
+.menu-header {
+  font-size: x-large;
+  letter-spacing: .2rem;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+.menu-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0 20px;
+}
+
+.search-bar {
+  width: 85%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.add-button {
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--text-color);
+  font-size: 24px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-list {
+  list-style: none;
+  margin: 0;
+  max-height: calc(100vh - 150px); 
+  overflow-y: auto; 
+}
+
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--tertiary-color);
+}
+
+.item-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 7px;
+}
+
+.item-message {
+  color: var(--text-color);
+  opacity: 0.6;
+}
+
+.item-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.item-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.item-list::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1); 
+  border-radius: 10px; 
+}
+
+.item-list {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent; 
+}
+
+.item-list.active {
+  background-color: var(--tertiary-color);
+}
+
+.item:hover {
+  background-color: var(--tertiary-color);
+  transition: background-color 0.3s ease;
+}
+
 
 /* Section 3: Chat Area */
 .chat-area {

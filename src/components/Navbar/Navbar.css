@@ -1,49 +1,49 @@
 /* Section 1: Navigation */
 .navbar {
-    width: 80px;
-    background-color: var(--primary-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    color: #fff;
-  }
+  width: 80px;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
   
-  .navbar ul {
-    width: 100%;
-    list-style: none;
-  }
-  
-  .navbar li {
-    width: 100%;
-    padding: 15px 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .navbar li:hover {
-    background-color: var(--secondary-color);
-    transition: background-color 0.3s ease;
-  }
-  
-  .navbar li:first-child {
-    padding: 45px 0;
-  }
-  
-  .navbar li:first-child img {
-  width: 45px; 
-  height: 45px; 
-  border-radius: 50%;
-  }
-  
-  .menu-icon {
-    width: 30px; 
-    height: 30px; 
-  }
-  
-  .navbar li.active {
-    background-color: var(--accent-color); /* Apply different background color */
-  }
+.navbar ul {
+  width: 100%;
+  list-style: none;
+}
+
+.navbar li {
+  width: 100%;
+  padding: 15px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar li:hover {
+  background-color: var(--secondary-color);
+  transition: background-color 0.3s ease;
+}
+
+.navbar li:first-child {
+  padding: 45px 0;
+}
+
+.navbar li:first-child img {
+width: 45px; 
+height: 45px; 
+border-radius: 50%;
+}
+
+.menu-icon {
+  width: 30px; 
+  height: 30px; 
+}
+
+.navbar li.active {
+  background-color: var(--accent-color);
+}
   

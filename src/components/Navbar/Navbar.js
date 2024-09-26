@@ -3,10 +3,10 @@ import './Navbar.css';
 
 function Navbar({ user, activeMenu, setMenu }) {
   const menus = [
-    { name: "profile", icon: user.image_url },
-    { name: "chat", icon: "icons/chat.png" },
-    { name: "friend", icon: "icons/friends.png" },
-    { name: "setting", icon: "icons/settings.png" }
+    { name: "Profile", icon: user.image_url },
+    { name: "Chats", icon: "icons/chat.png" },
+    { name: "Friends", icon: "icons/friends.png" },
+    { name: "Settings", icon: "icons/settings.png" }
   ];
 
   return (
