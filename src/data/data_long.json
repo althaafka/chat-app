@@ -58,22 +58,19 @@
         {
           "id": 885517,
           "type": "image",
-          "url": "https://example.com/images/bukti-pembayaran.jpg",
-          "message": "Bukti Pembayaran",
+          "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScnA_6iKOvTeBeuH8UuwkeEtuvU-ENcu4jTg&s",
           "sender": "customer@mail.com"
         },
         {
           "id": 885518,
           "type": "video",
-          "url": "https://example.com/videos/tutorial.mp4",
-          "message": "Tutorial Cara Pembayaran",
+          "url": "dummy_video.mp4",
           "sender": "agent@mail.com"
         },
         {
           "id": 885519,
           "type": "pdf",
-          "url": "https://example.com/documents/invoice.pdf",
-          "file_name": "Invoice Pembayaran.pdf",
+          "url": "invoice.pdf",
           "sender": "customer@mail.com"
         }
       ]
@@ -163,6 +160,12 @@
       "comments": [
         {
           "id": 876541,
+          "type": "text",
+          "message": "Halo, ini chat pribadi dengan agen. Halo, ini chat pribadi dengan agen. Halo, ini chat pribadi dengan agen. Halo, ini chat pribadi dengan agen. Halo, ini chat pribadi dengan agen. Halo, ini chat pribadi dengan agen. Halo, ini chat pribadi dengan agen.",
+          "sender": "customer@mail.com"
+        },
+        {
+          "id": 876542,
           "type": "text",
           "message": "Halo, ini chat pribadi dengan agen.",
           "sender": "customer@mail.com"
