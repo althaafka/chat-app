@@ -1,5 +1,6 @@
 /* Section 1: Navigation */
 .navbar {
+  flex-shrink: 0;
   width: 80px;
   background-color: var(--primary-color);
   display: flex;

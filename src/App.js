@@ -14,7 +14,6 @@ function App() {
   const [menu, setMenu] = useState("Chats");
   const [items, setItems] = useState(raw_data.results);
   const [activeRoom, setActiveRoom] = useState(items[0]);
-  console.log(items);
 
   const getRoomName = (room) => {
     if (room.type && room.type == "single") {
