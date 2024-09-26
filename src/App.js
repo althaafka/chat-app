@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import Message from './components/Message/Message';
 import raw_data from './data/data_long.json';
@@ -15,10 +15,19 @@ function App() {
   const [menu, setMenu] = useState("Chats");
   const [items, setItems] = useState(raw_data.results);
   const [activeRoom, setActiveRoom] = useState(items[0]);
+  const [newMessage, setNewMessage] = useState(""); 
+
+  const chatEndRef = useRef(null); 
+
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [activeRoom, activeRoom.comments]);
 
   const getRoomName = (room) => {
-    if (room.type && room.type == "single") {
-      const otherParticipant = room.participant.find(p => p.id != user.id);
+    if (room.type && room.type === "single") {
+      const otherParticipant = room.participant.find(p => p.id !== user.id);
       return otherParticipant ? otherParticipant.name : "Private Chat";
     }
     return room.name;
@@ -30,6 +39,36 @@ function App() {
 
   const getParticipant = (senderId) => {
     return activeRoom.room.participant.find((participant) => participant.id === senderId);
+  };
+
+  const handleSendMessage = () => {
+    if (newMessage.trim() === "") return;
+
+    const newComment = {
+      id: Date.now(), 
+      type: "text",
+      message: newMessage,
+      sender: user.id
+    };
+
+    const updatedRoom = {
+      ...activeRoom,
+      comments: [...activeRoom.comments, newComment]
+    };
+
+    const updatedItems = items.map(item =>
+      item.room.id === activeRoom.room.id ? updatedRoom : item
+    );
+
+    setActiveRoom(updatedRoom); 
+    setItems(updatedItems); 
+    setNewMessage(""); 
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
+    }
   };
 
   return (
@@ -45,11 +84,11 @@ function App() {
           {items.map((item) => (
             <li 
               key={item.room.id} 
-              className={`item ${activeRoom.room.id === item.room.id? 'active': ''}`}
+              className={`item ${activeRoom.room.id === item.room.id ? 'active' : ''}`}
               onClick={() => handleRoomClick(item)}
             >
               <div className="item-avatar">
-                <img src={item.room.image_url? item.room.image_url: "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" } alt={item.room.name} />
+                <img src={item.room.image_url ? item.room.image_url : "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" } alt={item.room.name} />
               </div>
               <div className="item-details">
                 <div className="item-name">
@@ -79,18 +118,25 @@ function App() {
                 {activeRoom.room.type === "multiple" && comment.sender !== user.id && (!previousComment || previousComment.sender !== comment.sender) && (
                   <div className="message-sender">{participant?.name}</div>
                 )}
-                <Message key={comment.id} comment={comment} user={user}/>
+                <Message key={comment.id} comment={comment} user={user} />
+                <div ref={chatEndRef}></div>
               </>
             );
           })}
         </div>
         <div className="chat-input">
           <button className="attachment-button">
-            <img src='icons/link-file.png'/>
+            <img src='icons/link-file.png' alt="Attach" />
           </button>
-          <input type="text" placeholder="Type something..." />
-          <button className="send-button">
-            <img src='icons/send-message.png'/>
+          <input 
+            type="text" 
+            placeholder="Type something..." 
+            value={newMessage} 
+            onChange={(e) => setNewMessage(e.target.value)} 
+            onKeyPress={handleKeyPress} // Send on Enter press
+          />
+          <button className="send-button" onClick={handleSendMessage}>
+            <img src='icons/send-message.png' alt="Send" />
           </button>
         </div>
       </div>

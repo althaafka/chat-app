@@ -196,8 +196,10 @@ body, html {
   margin-bottom: 7px;
   padding: 15px;
   max-width: 70%;
-  word-wrap: break-word; 
-  overflow-wrap: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word; 
+  word-break: break-word;
+  white-space: pre-wrap; 
   display: block;
   display: flex;
   align-items: center;
@@ -283,6 +285,7 @@ body, html {
   width: 30px;
   height: 30px;
 }
+
 
 /* Section 4: Side Bar */
 .side-bar {
