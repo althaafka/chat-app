@@ -346,41 +346,51 @@ const raw_data = {
     ]
   }  
 
-
 function App() {
   const [user, setUser] = useState(user_data);
   const [menu, setMenu] = useState("Chats");
-  const [items, setItems] = useState(raw_data.results)
+  const [items, setItems] = useState(raw_data.results);
+
+  const getRoomName = (room) => {
+    if (room.type === "single") {
+      const otherParticipant = room.participant.find(p => p.id !== user.id);
+      return otherParticipant ? otherParticipant.name : "Private Chat";
+    }
+    return room.name;
+  };
 
   return (
-    <div class="container">
+    <div className="container">
       <Navbar user={user} activeMenu={menu} setMenu={setMenu} />
-      <div class="menu">
-        <div class="menu-header">{menu}</div>
+      <div className="menu">
+        <div className="menu-header">{menu}</div>
         <div className="menu-controls">
           <input type="text" className="search-bar" placeholder="Search" />
           <button className="add-button">+</button>
-        </div> 
-        <ul class="item-list">
-            {items.map((item, index) => (
-              <li key={item.room.id} className="item">
-                <img src={item.room.image_url} className='item-avatar'/>
-                <div className="item-details">
-                  <div className="item-name">{item.room.name}</div>
-                  <div className="item-message">{item.comments[0].message}</div>
+        </div>
+        <ul className="item-list">
+          {items.map((item, index) => (
+            <li key={item.room.id} className="item">
+              <img src={item.room.image_url} className="item-avatar" />
+              <div className="item-details">
+                <div className="item-name">
+                  {getRoomName(item.room)}
                 </div>
-              </li>
-            ))}
-          </ul>
+                <div className="item-message">{item.comments[0].message}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div class="chat-area">
-          chat
+      <div className="chat-area">
+        chat
       </div>
-      <div class="side-bar">
-          side-bar
+      <div className="side-bar">
+        side-bar
       </div>
     </div>
   );
 }
+  
 
 export default App;
