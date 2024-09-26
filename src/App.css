@@ -239,11 +239,9 @@ body, html {
 }
 
 .message-pdf img {
-  max-width: 100px; /* Ukuran ikon PDF */
+  max-width: 100px;
   height: auto;
 }
-
-
 
 .message-sender {
   font-weight: 600;

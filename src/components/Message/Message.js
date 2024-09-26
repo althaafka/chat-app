@@ -1,10 +1,11 @@
-function Message({ comment, user }) {
+function Message({ comment, user}) {
     const { type, message, url} = comment;
   
     switch (type) {
       case 'text':
         return (
           <div className={`chat-message ${comment.sender === user.id ? 'sent' : 'received'}`}>
+
             <p>{message}</p>
           </div>
         );
@@ -19,7 +20,7 @@ function Message({ comment, user }) {
   
       case 'video':
         return (
-          <div className={`chat-message media-message${comment.sender === user.id ? 'sent' : 'received'}`}>
+          <div className={`chat-message media-message ${comment.sender === user.id ? 'sent' : 'received'}`}>
             <video controls poster={comment.thumbnail} className="message-video">
               <source src={url} type="video/mp4" />
               Your browser does not support the video tag.
