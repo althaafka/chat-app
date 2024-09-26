@@ -48,7 +48,9 @@ function App() {
               className={`item ${activeRoom.room.id === item.room.id? 'active': ''}`}
               onClick={() => handleRoomClick(item)}
             >
-              <img src={item.room.image_url? item.room.image_url: "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" } className="item-avatar" alt={item.room.name} />
+              <div className="item-avatar">
+                <img src={item.room.image_url? item.room.image_url: "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" } alt={item.room.name} />
+              </div>
               <div className="item-details">
                 <div className="item-name">
                   {getRoomName(item.room)}
