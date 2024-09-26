@@ -32,6 +32,13 @@ function App() {
     return activeRoom.room.participant.find((participant) => participant.id === senderId);
   };
 
+  const truncateMessage = (message, maxLength) => {
+    if (message.length > maxLength) {
+      return message.substring(0, maxLength) + '...';
+    }
+    return message;
+  };
+
   return (
     <div className="container">
       <Navbar user={user} activeMenu={menu} setMenu={setMenu} />
@@ -53,7 +60,9 @@ function App() {
                 <div className="item-name">
                   {getRoomName(item.room)}
                 </div>
-                <div className="item-message">{item.comments[0].message}</div>
+                <div className="item-message">
+                  {truncateMessage(item.comments[0].message, 40)}
+                </div>
               </div>
             </li>
           ))}
