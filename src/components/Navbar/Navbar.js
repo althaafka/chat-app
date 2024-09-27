@@ -1,7 +1,7 @@
 import React from 'react';
 import './Navbar.css';
 
-function Navbar({ user, activeMenu, setMenu }) {
+function Navbar({ user, activeMenu, setMenu, isChatView }) {
   const menus = [
     { name: "Profile", icon: user.image_url },
     { name: "Chats", icon: "icons/chat.png" },
@@ -10,7 +10,7 @@ function Navbar({ user, activeMenu, setMenu }) {
   ];
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${!isChatView ? 'active' : ''}`}>
       <ul>
         {menus.map((menu) => (
           <li 

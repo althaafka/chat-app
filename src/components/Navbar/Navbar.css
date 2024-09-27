@@ -1,15 +1,4 @@
 /* Section 1: Navigation */
-.navbar {
-  flex-shrink: 0;
-  width: 80px;
-  background-color: var(--primary-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-}
-  
 .navbar ul {
   width: 100%;
   list-style: none;

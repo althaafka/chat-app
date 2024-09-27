@@ -14,27 +14,29 @@ function App() {
   const [user, setUser] = useState(user_data);
   const [menu, setMenu] = useState("Chats");
   const [items, setItems] = useState(raw_data.results);
-  const [activeRoom, setActiveRoom] = useState(items[0]);
+  const [activeRoom, setActiveRoom] = useState(null);
   const [newMessage, setNewMessage] = useState(""); 
+  const [isChatView, setIsChatView] = useState(false); 
 
-  const chatEndRef = useRef(null); 
+  const chatEndRef = useRef(null);
 
   useEffect(() => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [activeRoom, activeRoom.comments]);
+  }, [activeRoom?.comments]);
 
   const getRoomName = (room) => {
-    if (room.type && room.type === "single") {
+    if (room?.type === "single") {
       const otherParticipant = room.participant.find(p => p.id !== user.id);
       return otherParticipant ? otherParticipant.name : "Private Chat";
     }
-    return room.name;
+    return room?.name;
   };
 
   const handleRoomClick = (room) => {
     setActiveRoom(room);
+    setIsChatView(true);
   };
 
   const getParticipant = (senderId) => {
@@ -71,10 +73,14 @@ function App() {
     }
   };
 
+  const backToMenu = () => {
+    setIsChatView(false); 
+  };
+
   return (
     <div className="container">
-      <Navbar user={user} activeMenu={menu} setMenu={setMenu} />
-      <div className="menu">
+      <Navbar user={user} activeMenu={menu} setMenu={setMenu} isChatView={isChatView} />
+      <div className={`menu ${!isChatView ? 'active' : ''}`}>
         <div className="menu-header">{menu}</div>
         <div className="menu-controls">
           <input type="text" className="search-bar" placeholder="Search" />
@@ -84,11 +90,11 @@ function App() {
           {items.map((item) => (
             <li 
               key={item.room.id} 
-              className={`item ${activeRoom.room.id === item.room.id ? 'active' : ''}`}
+              className={`item ${activeRoom?.room.id === item.room.id ? 'active' : ''}`}
               onClick={() => handleRoomClick(item)}
             >
               <div className="item-avatar">
-                <img src={item.room.image_url ? item.room.image_url : "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" } alt={item.room.name} />
+                <img src={item.room.image_url ? item.room.image_url : "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"} alt={item.room.name} />
               </div>
               <div className="item-details">
                 <div className="item-name">
@@ -102,15 +108,19 @@ function App() {
           ))}
         </ul>
       </div>
-      <div className="chat-area">
+
+      <div className={`chat-area ${isChatView ? 'active' : ''}`}>
         <div className="chat-header">
-          <img src={activeRoom.room.image_url || user.image_url} className="chat-avatar"/>
+          <button className="back-button" onClick={backToMenu}>
+            <img src="icons/left-arrow.png" alt="back"/>
+          </button>
+          <img src={activeRoom?.room.image_url || user.image_url} className="chat-avatar" alt="avatar"/>
           <div className="chat-room-info">
-            <h3>{getRoomName(activeRoom.room)}</h3>
+            <h3>{getRoomName(activeRoom?.room)}</h3>
           </div>
         </div>
         <div className="chat-messages">
-          {activeRoom.comments.map((comment, index) => {
+          {activeRoom?.comments.map((comment, index) => {
             const participant = getParticipant(comment.sender);
             const previousComment = index > 0 ? activeRoom.comments[index - 1] : null;
             return (
@@ -133,15 +143,12 @@ function App() {
             placeholder="Type something..." 
             value={newMessage} 
             onChange={(e) => setNewMessage(e.target.value)} 
-            onKeyPress={handleKeyPress} // Send on Enter press
+            onKeyPress={handleKeyPress}
           />
           <button className="send-button" onClick={handleSendMessage}>
             <img src='icons/send-message.png' alt="Send" />
           </button>
         </div>
-      </div>
-      <div className="side-bar">
-        side-bar
       </div>
     </div>
   );
