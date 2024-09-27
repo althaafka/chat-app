@@ -1,7 +1,8 @@
 import './App.css';
 import { useState, useRef, useEffect } from 'react';
 import Navbar from './components/Navbar/Navbar';
-import Message from './components/Message/Message';
+import ChatMenu from './components/Menu/ChatMenu';
+import Message from './components/Chat/Message';
 import raw_data from './data/data_long.json';
 
 const user_data = {
@@ -86,42 +87,38 @@ function App() {
     return roomName.includes(searchTerm.toLowerCase()) || hasMatchingMessage;
   });
 
+  const renderMenu = () => {
+    switch (menu) {
+      case "Chats":
+        return (
+          <ChatMenu
+            filteredItems={filteredItems} 
+            activeRoom={activeRoom} 
+            handleRoomClick={handleRoomClick} 
+            searchTerm={searchTerm} 
+            setSearchTerm={setSearchTerm}
+          />
+        );
+      case "Settings":
+        return <></>;
+      case "Profile":
+        return <></>;
+      default:
+        return <ChatMenu 
+          filteredItems={filteredItems} 
+          activeRoom={activeRoom} 
+          handleRoomClick={handleRoomClick} 
+          searchTerm={searchTerm} 
+          setSearchTerm={setSearchTerm}
+        />;
+    }
+  };
   return (
     <div className="container">
       <Navbar user={user} activeMenu={menu} setMenu={setMenu} isChatView={isChatView} />
+      
       <div className={`menu ${!isChatView ? 'active' : ''}`}>
-        <div className="menu-header">{menu}</div>
-        <div className="menu-controls">
-          <input 
-            type="text" 
-            className="search-bar" 
-            placeholder="Search" 
-            value={searchTerm} 
-            onChange={(e) => setSearchTerm(e.target.value)} 
-          />
-          <button className="add-button">+</button>
-        </div>
-        <ul className="item-list">
-          {filteredItems.map((item) => (
-            <li 
-              key={item.room.id} 
-              className={`item ${activeRoom?.room.id === item.room.id ? 'active' : ''}`}
-              onClick={() => handleRoomClick(item)}
-            >
-              <div className="item-avatar">
-                <img src={item.room.image_url ? item.room.image_url : "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"} alt={item.room.name} />
-              </div>
-              <div className="item-details">
-                <div className="item-name">
-                  {getRoomName(item.room)}
-                </div>
-                <div className="item-message">
-                  {item.comments[item.comments.length-1].type === "text"? item.comments[item.comments.length-1].message : item.comments[item.comments.length-1].type}
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+        {renderMenu()}
       </div>
 
       <div className={`chat-area ${isChatView ? 'active' : ''}`}>
