@@ -8,6 +8,14 @@
   --secondary-accent-color: #dcf8c6;
 }
 
+[data-theme="dark"] {
+  --primary-color: #1E272C; 
+  --secondary-color: #1B2126;
+  --tertiary-color: #151A1E;
+  --light-color: #2C383E; 
+  --text-color: #EAEAEA;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -35,14 +43,14 @@ body, html {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  color: #fff;
+  color: var(--text-color);
 }
 
 .menu {
   min-width: 270px;
   width: 30%;
   background-color: var(--secondary-color);
-  color: #fff;
+  color: var(--text-color);
   padding: 30px 0;
   flex-shrink: 0;
 }

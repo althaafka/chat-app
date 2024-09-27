@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import ChatMenu from './components/Menu/ChatMenu';
 import ProfileMenu from './components/Menu/ProfileMenu';
+import SettingsMenu from './components/Menu/SettingsMenu';
 import Message from './components/Chat/Message';
 import raw_data from './data/data_long.json';
 
@@ -18,8 +19,9 @@ function App() {
   const [items, setItems] = useState(raw_data.results);
   const [activeRoom, setActiveRoom] = useState(null);
   const [newMessage, setNewMessage] = useState(""); 
-  const [searchTerm, setSearchTerm] = useState("");  // Search state
+  const [searchTerm, setSearchTerm] = useState(""); 
   const [isChatView, setIsChatView] = useState(false); 
+  const [darkMode, setDarkMode] = useState(false)
 
   const chatEndRef = useRef(null);
 
@@ -28,6 +30,14 @@ function App() {
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeRoom?.comments]);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  }, [darkMode]);
 
   const getRoomName = (room) => {
     if (room?.type === "single") {
@@ -101,7 +111,7 @@ function App() {
           />
         );
       case "Settings":
-        return <></>;
+        return <SettingsMenu darkMode={darkMode} setDarkMode={setDarkMode}/>;
       case "Profile":
         return <ProfileMenu user={user}/>;
       default:
