@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import Message from './Message';
 import './Chat.css';
 
-const ChatArea = ({ activeRoom, user, newMessage, setNewMessage, handleSendMessage, handleKeyPress, backToMenu }) => {
+const ChatArea = ({ activeRoom, user, newMessage, setNewMessage, handleSendMessage, handleKeyPress, backToMenu, toggleSidebar }) => {
   const chatEndRef = useRef(null);
 
   useEffect(() => {
@@ -15,15 +15,23 @@ const ChatArea = ({ activeRoom, user, newMessage, setNewMessage, handleSendMessa
     return activeRoom.room.participant.find((participant) => participant.id === senderId);
   };
 
+  const getRoomName = (room) => {
+    if (room?.type === "single") {
+      const otherParticipant = room.participant.find(p => p.id !== user.id);
+      return otherParticipant ? otherParticipant.name : "Private Chat";
+    }
+    return room?.name;
+  };
+
   return (
     <div className="chat-area active">
-      <div className="chat-header">
+      <div className="chat-header">  
         <button className="back-button" onClick={backToMenu}>
           <img src="icons/left-arrow.png" alt="back"/>
         </button>
-        <img src={activeRoom?.room.image_url || user.image_url} className="chat-avatar" alt="avatar"/>
-        <div className="chat-room-info">
-          <h3>{activeRoom?.room.name}</h3>
+        <img src={activeRoom?.room.image_url || user.image_url} className="chat-avatar" alt="avatar" onClick={toggleSidebar}/>
+        <div className="chat-room-info" onClick={toggleSidebar}>
+          <h3>{getRoomName(activeRoom.room)}</h3>
         </div>
       </div>
       <div className="chat-messages">

@@ -34,14 +34,14 @@
         {
           "id": 885513,
           "type": "text",
-          "message": "Malam",
-          "sender": "agent@mail.com"
+          "message": "Selamat Malam",
+          "sender": "admin@mail.com"
         },
         {
           "id": 885514,
           "type": "text",
           "message": "Ada yang bisa saya bantu?",
-          "sender": "agent@mail.com"
+          "sender": "admin@mail.com"
         },
         {
           "id": 885515,

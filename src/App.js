@@ -1,10 +1,11 @@
 import './App.css';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import ChatMenu from './components/Menu/ChatMenu';
 import ProfileMenu from './components/Menu/ProfileMenu';
 import SettingsMenu from './components/Menu/SettingsMenu';
 import ChatArea from './components/Chat/ChatArea';
+import Sidebar from './components/Sidebar/Sidebar';
 import raw_data from './data/data_long.json';
 
 const user_data = {
@@ -21,7 +22,8 @@ function App() {
   const [newMessage, setNewMessage] = useState(""); 
   const [searchTerm, setSearchTerm] = useState(""); 
   const [isChatView, setIsChatView] = useState(false); 
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(false);
+  const [sidebarVisible, setSidebarVisible] = useState(false); // State for side-bar visibility
 
   useEffect(() => {
     if (darkMode) {
@@ -36,16 +38,17 @@ function App() {
       const otherParticipant = room.participant.find(p => p.id !== user.id);
       return otherParticipant ? otherParticipant.name : "Private Chat";
     }
-    return room?.name;
+    return room.name;
   };
 
   const handleRoomClick = (room) => {
     setActiveRoom(room);
     setIsChatView(true);
+    setSidebarVisible(false); // Hide the side-bar when switching rooms
   };
 
-  const getParticipant = (senderId) => {
-    return activeRoom.room.participant.find((participant) => participant.id === senderId);
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible); // Toggle the side-bar
   };
 
   const handleSendMessage = () => {
@@ -116,7 +119,7 @@ function App() {
         />;
     }
   };
-  
+
   return (
     <div className="container">
       <Navbar user={user} activeMenu={menu} setMenu={setMenu} isChatView={isChatView} />
@@ -126,16 +129,19 @@ function App() {
       </div>
 
       {isChatView && (
-        <ChatArea 
-          activeRoom={activeRoom}
-          user={user}
-          newMessage={newMessage}
-          setNewMessage={setNewMessage}
-          handleSendMessage={handleSendMessage}
-          handleKeyPress={handleKeyPress}
-          backToMenu={backToMenu}
-        />
+          <ChatArea 
+            activeRoom={activeRoom}
+            user={user}
+            newMessage={newMessage}
+            setNewMessage={setNewMessage}
+            handleSendMessage={handleSendMessage}
+            handleKeyPress={handleKeyPress}
+            backToMenu={backToMenu}
+            toggleSidebar={toggleSidebar} 
+          />
       )}
+
+      <Sidebar visible={sidebarVisible} activeRoom={activeRoom} toggleSidebar={toggleSidebar} user={user}/>
     </div>
   );
 }
