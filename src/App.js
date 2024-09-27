@@ -16,6 +16,7 @@ function App() {
   const [items, setItems] = useState(raw_data.results);
   const [activeRoom, setActiveRoom] = useState(null);
   const [newMessage, setNewMessage] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState("");  // Search state
   const [isChatView, setIsChatView] = useState(false); 
 
   const chatEndRef = useRef(null);
@@ -77,17 +78,31 @@ function App() {
     setIsChatView(false); 
   };
 
+  const filteredItems = items.filter(item => {
+    const roomName = getRoomName(item.room).toLowerCase();
+    const hasMatchingMessage = item.comments.some(comment =>
+      comment.message?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    return roomName.includes(searchTerm.toLowerCase()) || hasMatchingMessage;
+  });
+
   return (
     <div className="container">
       <Navbar user={user} activeMenu={menu} setMenu={setMenu} isChatView={isChatView} />
       <div className={`menu ${!isChatView ? 'active' : ''}`}>
         <div className="menu-header">{menu}</div>
         <div className="menu-controls">
-          <input type="text" className="search-bar" placeholder="Search" />
+          <input 
+            type="text" 
+            className="search-bar" 
+            placeholder="Search" 
+            value={searchTerm} 
+            onChange={(e) => setSearchTerm(e.target.value)} 
+          />
           <button className="add-button">+</button>
         </div>
         <ul className="item-list">
-          {items.map((item) => (
+          {filteredItems.map((item) => (
             <li 
               key={item.room.id} 
               className={`item ${activeRoom?.room.id === item.room.id ? 'active' : ''}`}
@@ -101,7 +116,7 @@ function App() {
                   {getRoomName(item.room)}
                 </div>
                 <div className="item-message">
-                  {item.comments[0].message}
+                  {item.comments[item.comments.length-1].type === "text"? item.comments[item.comments.length-1].message : item.comments[item.comments.length-1].type}
                 </div>
               </div>
             </li>

@@ -5,7 +5,6 @@ function Navbar({ user, activeMenu, setMenu, isChatView }) {
   const menus = [
     { name: "Profile", icon: user.image_url },
     { name: "Chats", icon: "icons/chat.png" },
-    { name: "Friends", icon: "icons/friends.png" },
     { name: "Settings", icon: "icons/settings.png" }
   ];
 
