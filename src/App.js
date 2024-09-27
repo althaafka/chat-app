@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import ChatMenu from './components/Menu/ChatMenu';
 import ProfileMenu from './components/Menu/ProfileMenu';
 import SettingsMenu from './components/Menu/SettingsMenu';
-import Message from './components/Chat/Message';
+import ChatArea from './components/Chat/ChatArea';
 import raw_data from './data/data_long.json';
 
 const user_data = {
@@ -22,14 +22,6 @@ function App() {
   const [searchTerm, setSearchTerm] = useState(""); 
   const [isChatView, setIsChatView] = useState(false); 
   const [darkMode, setDarkMode] = useState(false)
-
-  const chatEndRef = useRef(null);
-
-  useEffect(() => {
-    if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [activeRoom?.comments]);
 
   useEffect(() => {
     if (darkMode) {
@@ -60,7 +52,7 @@ function App() {
     if (newMessage.trim() === "") return;
 
     const newComment = {
-      id: Date.now(), 
+      id: Date.now(),
       type: "text",
       message: newMessage,
       sender: user.id
@@ -75,9 +67,9 @@ function App() {
       item.room.id === activeRoom.room.id ? updatedRoom : item
     );
 
-    setActiveRoom(updatedRoom); 
-    setItems(updatedItems); 
-    setNewMessage(""); 
+    setActiveRoom(updatedRoom);
+    setItems(updatedItems);
+    setNewMessage("");
   };
 
   const handleKeyPress = (e) => {
@@ -87,7 +79,7 @@ function App() {
   };
 
   const backToMenu = () => {
-    setIsChatView(false); 
+    setIsChatView(false);
   };
 
   const filteredItems = items.filter(item => {
@@ -124,6 +116,7 @@ function App() {
         />;
     }
   };
+  
   return (
     <div className="container">
       <Navbar user={user} activeMenu={menu} setMenu={setMenu} isChatView={isChatView} />
@@ -132,47 +125,17 @@ function App() {
         {renderMenu()}
       </div>
 
-      <div className={`chat-area ${isChatView ? 'active' : ''}`}>
-        <div className="chat-header">
-          <button className="back-button" onClick={backToMenu}>
-            <img src="icons/left-arrow.png" alt="back"/>
-          </button>
-          <img src={activeRoom?.room.image_url || user.image_url} className="chat-avatar" alt="avatar"/>
-          <div className="chat-room-info">
-            <h3>{getRoomName(activeRoom?.room)}</h3>
-          </div>
-        </div>
-        <div className="chat-messages">
-          {activeRoom?.comments.map((comment, index) => {
-            const participant = getParticipant(comment.sender);
-            const previousComment = index > 0 ? activeRoom.comments[index - 1] : null;
-            return (
-              <>
-                {activeRoom.room.type === "multiple" && comment.sender !== user.id && (!previousComment || previousComment.sender !== comment.sender) && (
-                  <div className="message-sender">{participant?.name}</div>
-                )}
-                <Message key={comment.id} comment={comment} user={user} />
-                <div ref={chatEndRef}></div>
-              </>
-            );
-          })}
-        </div>
-        <div className="chat-input">
-          <button className="attachment-button">
-            <img src='icons/link-file.png' alt="Attach" />
-          </button>
-          <input 
-            type="text" 
-            placeholder="Type something..." 
-            value={newMessage} 
-            onChange={(e) => setNewMessage(e.target.value)} 
-            onKeyPress={handleKeyPress}
-          />
-          <button className="send-button" onClick={handleSendMessage}>
-            <img src='icons/send-message.png' alt="Send" />
-          </button>
-        </div>
-      </div>
+      {isChatView && (
+        <ChatArea 
+          activeRoom={activeRoom}
+          user={user}
+          newMessage={newMessage}
+          setNewMessage={setNewMessage}
+          handleSendMessage={handleSendMessage}
+          handleKeyPress={handleKeyPress}
+          backToMenu={backToMenu}
+        />
+      )}
     </div>
   );
 }
