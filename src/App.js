@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useRef, useEffect } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import ChatMenu from './components/Menu/ChatMenu';
+import ProfileMenu from './components/Menu/ProfileMenu';
 import Message from './components/Chat/Message';
 import raw_data from './data/data_long.json';
 
@@ -102,7 +103,7 @@ function App() {
       case "Settings":
         return <></>;
       case "Profile":
-        return <></>;
+        return <ProfileMenu user={user}/>;
       default:
         return <ChatMenu 
           filteredItems={filteredItems} 
@@ -116,7 +117,7 @@ function App() {
   return (
     <div className="container">
       <Navbar user={user} activeMenu={menu} setMenu={setMenu} isChatView={isChatView} />
-      
+
       <div className={`menu ${!isChatView ? 'active' : ''}`}>
         {renderMenu()}
       </div>

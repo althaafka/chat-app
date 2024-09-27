@@ -112,3 +112,15 @@
   transition: background-color 0.3s ease;
 }
   
+.menu-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-profile img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
